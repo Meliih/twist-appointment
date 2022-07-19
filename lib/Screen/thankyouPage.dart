@@ -40,7 +40,7 @@ class _ThankYouPageState extends State<ThankYouPage> {
               height: 170,
               padding: EdgeInsets.all(35),
               decoration: BoxDecoration(
-                color: Colors.purple,
+                color: Color(0xFF9C27B0),
                 shape: BoxShape.circle,
               ),
               child: Image.asset(

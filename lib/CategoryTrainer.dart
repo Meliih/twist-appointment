@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-
+import 'package:google_fonts/google_fonts.dart';
 import 'DbHelper.dart';
 import 'Doctor_details_page.dart';
 import 'Models/Trainer.dart';
@@ -25,31 +25,12 @@ class _CategoryTrainerState extends State<CategoryTrainer> {
 
   Widget initWidget(
       BuildContext context, List<Trainer> trainers, int selectedCategory) {
-    //Size size = MediaQuery.of(context).size;
+    Size size = MediaQuery.of(context).size;
     return Scaffold(
       backgroundColor: Colors.purple,
       appBar: AppBar(
         elevation: 0.0,
         backgroundColor: Colors.purple,
-        //centerTitle: true,
-
-        actions: [
-          GestureDetector(
-            child: Container(
-              margin: EdgeInsets.only(right: 10),
-              child: Icon(
-                Icons.notifications_rounded,
-                color: Colors.white,
-              ),
-            ),
-          ),
-          GestureDetector(
-            child: Container(
-              margin: EdgeInsets.only(right: 5),
-              child: Image.asset("image/girl.png"),
-            ),
-          )
-        ],
       ),
       body: Column(
         children: [
@@ -79,154 +60,80 @@ class _CategoryTrainerState extends State<CategoryTrainer> {
 }
 
 Widget demoTopRatedDr(BuildContext context, Trainer trainer) {
-  var size = MediaQuery.of(context).size;
+  Size size = MediaQuery.of(context).size;
   return GestureDetector(
     onTap: () {
-      /*Navigator.push(context,
-            MaterialPageRoute(builder: (context) => DoctorDetailPage()));*/
+      Navigator.push(
+          context,
+          MaterialPageRoute(
+              builder: (context) => DoctorDetailPage(
+                    trainer: trainer,
+                  )));
     },
     child: Container(
       height: 115,
-      // width: size.width,
+      width: size.width - 40,
       margin: EdgeInsets.only(top: 10),
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(5),
       ),
       child: _buildRow(context, trainer),
-      /*Row(
-          mainAxisAlignment: MainAxisAlignment.start,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Container(
-              margin: EdgeInsets.only(left: 20),
-              height: 90,
-              width: 50,
-              child: Image.asset(img),
-            ),
-            Container(
-              margin: EdgeInsets.only(left: 20, top: 10),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: [
-                  Container(
-                    margin: EdgeInsets.only(top: 10),
-                    child: Text(
-                      name,
-                      style: TextStyle(
-                        color: Color(0xff363636),
-                        fontSize: 17,
-                        fontFamily: 'Roboto',
-                        fontWeight: FontWeight.w700,
-                      ),
-                    ),
-                  ),
-                  Container(
-                    margin: EdgeInsets.only(top: 10),
-                    child: Row(
-                      children: [
-                        Text(
-                          name,
-                          style: TextStyle(
-                            color: Color(0xffababab),
-                            fontFamily: 'Roboto',
-                            fontWeight: FontWeight.w300,
-                          ),
-                        ),
-
-                        Container(
-                          // Puan containeri
-                          margin:
-                              EdgeInsets.only(top: 3, left: size.width * 0.25),
-                          child: Row(
-                            children: <Widget>[
-                              Container(
-                              child: Text(
-                                "Puan: ",
-                                style: TextStyle(
-                                  color: Colors.black,
-                                  fontSize: 12,
-                                  fontFamily: 'Roboto',
-                                ),
-                              ),
-                              ),
-                              Container(
-                                child: Text(
-                                  rating,
-                                  style: TextStyle(
-                                    color: Colors.black,
-                                    fontSize: 12,
-                                    fontFamily: 'Roboto',
-                                  ),
-                                ),
-                              )
-                            ],
-                          ),
-                        )
-                      ],
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          ],
-        ),*/
     ),
   );
 }
 
 Widget _buildRow(BuildContext context, Trainer trainer) {
   return Container(
-    padding: const EdgeInsets.all(16),
+    padding: const EdgeInsets.all(15),
     child: Row(
       children: <Widget>[
         CircleAvatar(
           radius: 35,
           backgroundImage: AssetImage(trainer.img),
         ),
-        SizedBox(width: 12),
+        SizedBox(width: 15),
         Expanded(
           child: Column(
             mainAxisSize: MainAxisSize.min,
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: <Widget>[
               Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: <Widget>[
-                  Column(
-                    children: <Widget>[
-                      Text(trainer.name, style: TextStyle(color: Colors.grey)),
-                    ],
+                  Text(
+                    trainer.name,
+                    maxLines: 3,
+                    style: GoogleFonts.poiretOne(
+                      color: Colors.black,
+                      fontWeight: FontWeight.w600,
+                      fontSize: 17,
+                    ),
                   ),
                   Column(
                     children: <Widget>[
-                      Text(trainer.domain,
-                          style: TextStyle(color: Colors.grey)),
-                    ],
-                  ),
-                  Column(
-                    children: <Widget>[
-                      Text(trainer.rating,
-                          style: TextStyle(fontWeight: FontWeight.bold)),
-                      Text("Puan", style: TextStyle(color: Colors.grey)),
+                      Text(
+                        trainer.rating,
+                        style: GoogleFonts.poiretOne(
+                          color: Colors.black,
+                          fontWeight: FontWeight.w600,
+                          fontSize: 17,
+                        ),
+                      ),
+                      Text("Puan",
+                          style: GoogleFonts.poiretOne(
+                            color: Colors.black,
+                            fontWeight: FontWeight.w600,
+                            fontSize: 17,
+                          )),
                     ],
                   ),
                 ],
               ),
-              /*OutlineButton(
-                  onPressed: () {
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) =>
-                                DoctorDetailPage(trainer: trainer)));
-                                
-                  },*/
-              //child: Text("Randevu Al")),
             ],
           ),
         ),
+        SizedBox(width: 10),
       ],
     ),
   );

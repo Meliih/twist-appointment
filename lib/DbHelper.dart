@@ -19,12 +19,15 @@ class DbHelper {
   List<Trainer> Trainers() {
     Trainer trainer =
         Trainer(1, "image/woman.png", "Çağla Öner", "5.0", "", [1, 2]);
-    Trainer trainer2 = Trainer(2, "image/girl.png", "Zeliha ", "5.0", "", [1]);
-    Trainer trainer3 = Trainer(3, "image/woman.png", "Kadriye", "5.0", "", [1]);
-    Trainer trainer4 = Trainer(4, "image/woman.png", "Mine", "5.0", "", [1]);
+    Trainer trainer2 =
+        Trainer(2, "image/girl.png", "Zeliha Saburlu ", "5.0", "", [1]);
+    Trainer trainer3 =
+        Trainer(3, "image/woman.png", "Kadriye Yerlikaya", "5.0", "", [1]);
+    Trainer trainer4 =
+        Trainer(4, "image/woman.png", "Mine Bayram", "5.0", "", [1]);
     Trainer trainer5 =
-        Trainer(5, "image/woman.png", "Sibel", "5.0", "", [2, 1]);
-    /*
+        Trainer(5, "image/woman.png", "Sibel Fidan", "5.0", "", [2, 1]);
+/*
     writeData(trainer.toMap(), trainer.name);
     writeData(trainer2.toMap(), trainer2.name);
     writeData(trainer3.toMap(), trainer3.name);

@@ -1,6 +1,7 @@
 import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/date_symbol_data_local.dart';
 import 'DbHelper.dart';
 import 'package:intl/intl.dart';
@@ -68,27 +69,6 @@ class _DoctorDetailState extends State<DoctorDetailPage> {
         elevation: 0.0,
         backgroundColor: Colors.purple,
         centerTitle: true,
-        leading: GestureDetector(
-          onTap: () {
-            Navigator.pop(context);
-          },
-          child: Icon(
-            Icons.arrow_back,
-            color: Colors.white,
-          ),
-        ),
-        actions: [
-          GestureDetector(
-            onTap: () {},
-            child: Container(
-              margin: EdgeInsets.only(right: 15),
-              child: Icon(
-                Icons.notifications_rounded,
-                color: Colors.white,
-              ),
-            ),
-          ),
-        ],
       ),
       body: SingleChildScrollView(
         child: Column(
@@ -121,11 +101,10 @@ class _DoctorDetailState extends State<DoctorDetailPage> {
                             margin: EdgeInsets.only(top: 30),
                             child: Text(
                               trainer.name,
-                              style: TextStyle(
+                              style: GoogleFonts.poiretOne(
                                 color: Colors.white,
+                                fontWeight: FontWeight.w600,
                                 fontSize: 22,
-                                fontFamily: 'Roboto',
-                                fontWeight: FontWeight.w700,
                               ),
                             ),
                           ),
@@ -133,11 +112,10 @@ class _DoctorDetailState extends State<DoctorDetailPage> {
                             margin: EdgeInsets.only(top: 10),
                             child: Text(
                               trainer.domain,
-                              style: TextStyle(
+                              style: GoogleFonts.poiretOne(
                                 color: Colors.white,
+                                fontWeight: FontWeight.w600,
                                 fontSize: 15,
-                                fontFamily: 'Roboto',
-                                fontWeight: FontWeight.w300,
                               ),
                             ),
                           ),
@@ -145,11 +123,10 @@ class _DoctorDetailState extends State<DoctorDetailPage> {
                             margin: EdgeInsets.only(top: 15),
                             child: Text(
                               'Puan: ' + trainer.rating,
-                              style: TextStyle(
-                                color: Colors.yellow,
+                              style: GoogleFonts.poiretOne(
+                                color: Colors.white,
+                                fontWeight: FontWeight.w600,
                                 fontSize: 15,
-                                fontFamily: 'Roboto',
-                                fontWeight: FontWeight.bold,
                               ),
                             ),
                           ),
@@ -164,11 +141,10 @@ class _DoctorDetailState extends State<DoctorDetailPage> {
               margin: EdgeInsets.only(left: 20, top: 30),
               child: Text(
                 months[time.month - 1] + " " + time.year.toString(),
-                style: TextStyle(
-                  color: Color(0xff363636),
+                style: GoogleFonts.poiretOne(
+                  color: Colors.black,
+                  fontWeight: FontWeight.w600,
                   fontSize: 25,
-                  fontFamily: 'Roboto',
-                  fontWeight: FontWeight.w700,
                 ),
               ),
             ),
@@ -199,11 +175,10 @@ class _DoctorDetailState extends State<DoctorDetailPage> {
               margin: EdgeInsets.only(left: 20, top: 30),
               child: Text(
                 'Saatler',
-                style: TextStyle(
-                  color: Color(0xff363636),
+                style: GoogleFonts.poiretOne(
+                  color: Colors.black,
+                  fontWeight: FontWeight.w600,
                   fontSize: 25,
-                  fontFamily: 'Roboto',
-                  fontWeight: FontWeight.w700,
                 ),
               ),
             ),
@@ -230,11 +205,10 @@ class _DoctorDetailState extends State<DoctorDetailPage> {
               ),
               child: Text(
                 'Randevu Al',
-                style: TextStyle(
+                style: GoogleFonts.poiretOne(
                   color: Colors.white,
-                  fontSize: 20,
-                  fontFamily: 'Roboto',
-                  fontWeight: FontWeight.w500,
+                  fontWeight: FontWeight.w600,
+                  fontSize: 25,
                 ),
               ),
             ),
@@ -264,11 +238,10 @@ class _DoctorDetailState extends State<DoctorDetailPage> {
               Container(
                 child: Text(
                   day,
-                  style: TextStyle(
+                  style: GoogleFonts.poiretOne(
                     color: Colors.black,
+                    fontWeight: FontWeight.w600,
                     fontSize: 17,
-                    fontFamily: 'Roboto',
-                    fontWeight: FontWeight.w500,
                   ),
                 ),
               ),
@@ -277,11 +250,11 @@ class _DoctorDetailState extends State<DoctorDetailPage> {
                 padding: EdgeInsets.all(7),
                 child: Text(
                   date,
-                  style: TextStyle(
-                      color: Colors.black,
-                      fontSize: 15,
-                      fontFamily: 'Roboto',
-                      fontWeight: FontWeight.bold),
+                  style: GoogleFonts.poiretOne(
+                    color: Colors.black,
+                    fontWeight: FontWeight.w600,
+                    fontSize: 15,
+                  ),
                 ),
               ),
             ],
@@ -319,10 +292,10 @@ class _DoctorDetailState extends State<DoctorDetailPage> {
                 margin: EdgeInsets.only(left: 2),
                 child: Text(
                   time,
-                  style: TextStyle(
+                  style: GoogleFonts.poiretOne(
                     color: Colors.black,
+                    fontWeight: FontWeight.w600,
                     fontSize: 17,
-                    fontFamily: 'Roboto',
                   ),
                 ),
               ),

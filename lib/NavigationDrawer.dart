@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:twist/HomePage.dart';
 import 'package:twist/Models/Globals.dart' as globals;
@@ -103,7 +104,14 @@ class _NavigationDrawerState extends State<NavigationDrawer> {
         icon,
         color: color,
       ),
-      title: Text(text, style: TextStyle(color: color)),
+      title: Text(
+        text,
+        style: GoogleFonts.poiretOne(
+          color: Colors.white,
+          fontWeight: FontWeight.w600,
+          fontSize: 17,
+        ),
+      ),
       hoverColor: hoverColor,
       onTap: onClicked,
     );
@@ -139,17 +147,24 @@ class _NavigationDrawerState extends State<NavigationDrawer> {
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(name,
-                      style: TextStyle(
-                        fontSize: 14,
-                        color: Colors.white,
-                      )),
+                  Text(
+                    name,
+                    style: GoogleFonts.poiretOne(
+                      color: Colors.white,
+                      fontWeight: FontWeight.w600,
+                      fontSize: 17,
+                    ),
+                  ),
                   const SizedBox(
                     height: 4,
                   ),
                   Text(
                     email,
-                    style: TextStyle(fontSize: 14, color: Colors.white),
+                    style: GoogleFonts.poiretOne(
+                      color: Colors.white,
+                      fontWeight: FontWeight.w600,
+                      fontSize: 17,
+                    ),
                   ),
                 ],
               )

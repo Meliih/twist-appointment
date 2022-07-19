@@ -89,11 +89,10 @@ class _UserPage extends State<UserPage> {
               ),
               child: Text(
                 'Kaydet',
-                style: TextStyle(
+                style: GoogleFonts.poiretOne(
                   color: Colors.white,
-                  fontSize: 20,
-                  fontFamily: 'Roboto',
-                  fontWeight: FontWeight.w500,
+                  fontWeight: FontWeight.w600,
+                  fontSize: 22,
                 ),
               ),
             ),
@@ -114,10 +113,20 @@ class _UserPage extends State<UserPage> {
       child: Column(
         children: <Widget>[
           TextField(
+            style: GoogleFonts.poiretOne(
+              color: Colors.black,
+              fontWeight: FontWeight.w600,
+              fontSize: 17,
+            ),
             decoration: InputDecoration(
-                labelText: "Göğüs Ölçüsü",
-                enabledBorder: InputBorder.none,
-                labelStyle: const TextStyle(color: Colors.grey)),
+              labelText: "Göğüs Ölçüsü",
+              enabledBorder: InputBorder.none,
+              labelStyle: GoogleFonts.poiretOne(
+                color: Color(0xff363636),
+                fontWeight: FontWeight.w600,
+                fontSize: 17,
+              ),
+            ),
           ),
           Container(
             child: Divider(
@@ -126,6 +135,11 @@ class _UserPage extends State<UserPage> {
           ),
           TextField(
             obscureText: false,
+            style: GoogleFonts.poiretOne(
+              color: Colors.black,
+              fontWeight: FontWeight.w600,
+              fontSize: 17,
+            ),
             decoration: InputDecoration(
               labelText: "Göğüs Altı",
               enabledBorder: InputBorder.none,
@@ -142,11 +156,21 @@ class _UserPage extends State<UserPage> {
             ),
           ),
           TextField(
+            style: GoogleFonts.poiretOne(
+              color: Colors.black,
+              fontWeight: FontWeight.w600,
+              fontSize: 17,
+            ),
             obscureText: false,
             decoration: InputDecoration(
-                labelText: "Bel",
-                enabledBorder: InputBorder.none,
-                labelStyle: const TextStyle(color: Colors.grey)),
+              labelText: "Bel",
+              enabledBorder: InputBorder.none,
+              labelStyle: GoogleFonts.poiretOne(
+                color: Color(0xff363636),
+                fontWeight: FontWeight.w600,
+                fontSize: 17,
+              ),
+            ),
           ),
           Container(
             child: Divider(
@@ -154,10 +178,20 @@ class _UserPage extends State<UserPage> {
             ),
           ),
           TextField(
+            style: GoogleFonts.poiretOne(
+              color: Colors.black,
+              fontWeight: FontWeight.w600,
+              fontSize: 17,
+            ),
             decoration: InputDecoration(
-                labelText: "Karın",
-                enabledBorder: InputBorder.none,
-                labelStyle: const TextStyle(color: Colors.grey)),
+              labelText: "Karın",
+              enabledBorder: InputBorder.none,
+              labelStyle: GoogleFonts.poiretOne(
+                color: Color(0xff363636),
+                fontWeight: FontWeight.w600,
+                fontSize: 17,
+              ),
+            ),
           ),
           Container(
             child: Divider(
@@ -165,10 +199,20 @@ class _UserPage extends State<UserPage> {
             ),
           ),
           TextField(
+            style: GoogleFonts.poiretOne(
+              color: Colors.black,
+              fontWeight: FontWeight.w600,
+              fontSize: 17,
+            ),
             decoration: InputDecoration(
-                labelText: "Kalça",
-                enabledBorder: InputBorder.none,
-                labelStyle: const TextStyle(color: Colors.grey)),
+              labelText: "Kalça",
+              enabledBorder: InputBorder.none,
+              labelStyle: GoogleFonts.poiretOne(
+                color: Color(0xff363636),
+                fontWeight: FontWeight.w600,
+                fontSize: 17,
+              ),
+            ),
           ),
           Container(
             child: Divider(
@@ -176,10 +220,20 @@ class _UserPage extends State<UserPage> {
             ),
           ),
           TextField(
+            style: GoogleFonts.poiretOne(
+              color: Colors.black,
+              fontWeight: FontWeight.w600,
+              fontSize: 17,
+            ),
             decoration: InputDecoration(
-                labelText: "Basen",
-                enabledBorder: InputBorder.none,
-                labelStyle: const TextStyle(color: Colors.grey)),
+              labelText: "Basen",
+              enabledBorder: InputBorder.none,
+              labelStyle: GoogleFonts.poiretOne(
+                color: Color(0xff363636),
+                fontWeight: FontWeight.w600,
+                fontSize: 17,
+              ),
+            ),
           ),
           Container(
             child: Divider(
@@ -187,10 +241,20 @@ class _UserPage extends State<UserPage> {
             ),
           ),
           TextField(
+            style: GoogleFonts.poiretOne(
+              color: Colors.black,
+              fontWeight: FontWeight.w600,
+              fontSize: 17,
+            ),
             decoration: InputDecoration(
-                labelText: "Sağ Üst Bacak",
-                enabledBorder: InputBorder.none,
-                labelStyle: const TextStyle(color: Colors.grey)),
+              labelText: "Sağ Üst Bacak",
+              enabledBorder: InputBorder.none,
+              labelStyle: GoogleFonts.poiretOne(
+                color: Color(0xff363636),
+                fontWeight: FontWeight.w600,
+                fontSize: 17,
+              ),
+            ),
           ),
           Container(
             child: Divider(
@@ -198,10 +262,20 @@ class _UserPage extends State<UserPage> {
             ),
           ),
           TextField(
+            style: GoogleFonts.poiretOne(
+              color: Colors.black,
+              fontWeight: FontWeight.w600,
+              fontSize: 17,
+            ),
             decoration: InputDecoration(
-                labelText: "Sol Üst Bacak",
-                enabledBorder: InputBorder.none,
-                labelStyle: const TextStyle(color: Colors.grey)),
+              labelText: "Sol Üst Bacak",
+              enabledBorder: InputBorder.none,
+              labelStyle: GoogleFonts.poiretOne(
+                color: Color(0xff363636),
+                fontWeight: FontWeight.w600,
+                fontSize: 17,
+              ),
+            ),
           ),
           Container(
             child: Divider(
@@ -209,10 +283,20 @@ class _UserPage extends State<UserPage> {
             ),
           ),
           TextField(
+            style: GoogleFonts.poiretOne(
+              color: Colors.black,
+              fontWeight: FontWeight.w600,
+              fontSize: 17,
+            ),
             decoration: InputDecoration(
-                labelText: "Sağ Üst Kol",
-                enabledBorder: InputBorder.none,
-                labelStyle: const TextStyle(color: Colors.grey)),
+              labelText: "Sağ Üst Kol",
+              enabledBorder: InputBorder.none,
+              labelStyle: GoogleFonts.poiretOne(
+                color: Color(0xff363636),
+                fontWeight: FontWeight.w600,
+                fontSize: 17,
+              ),
+            ),
           ),
           Container(
             child: Divider(
@@ -220,10 +304,20 @@ class _UserPage extends State<UserPage> {
             ),
           ),
           TextField(
+            style: GoogleFonts.poiretOne(
+              color: Colors.black,
+              fontWeight: FontWeight.w600,
+              fontSize: 17,
+            ),
             decoration: InputDecoration(
-                labelText: "Sol Üst Kol",
-                enabledBorder: InputBorder.none,
-                labelStyle: const TextStyle(color: Colors.grey)),
+              labelText: "Sol Üst Kol",
+              enabledBorder: InputBorder.none,
+              labelStyle: GoogleFonts.poiretOne(
+                color: Color(0xff363636),
+                fontWeight: FontWeight.w600,
+                fontSize: 17,
+              ),
+            ),
           ),
           Container(
             child: Divider(

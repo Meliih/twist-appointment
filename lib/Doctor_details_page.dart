@@ -1,8 +1,8 @@
-import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/date_symbol_data_local.dart';
+import 'package:twist/Models/AppointmentDate.dart';
 import 'DbHelper.dart';
 import 'package:intl/intl.dart';
 
@@ -43,8 +43,8 @@ class _DoctorDetailState extends State<DoctorDetailPage> {
 
   List<String> turkishDays = List<String>.filled(10, "0");
 
-  List<String> clocksWeekDays = [];
-  List<String> clocksWeekend = [];
+  late Future<List<String>> clocksWeekDays;
+  late Future<List<String>> clocksWeekend;
 
   final trDays = [
     "Pazartesi",
@@ -63,6 +63,13 @@ class _DoctorDetailState extends State<DoctorDetailPage> {
 
   Widget initWidget(BuildContext context, Trainer trainer) {
     List<DateTime> days = possibleAppointment();
+
+    AppointmentDate _appointmentDate = AppointmentDate("", "", false);
+    String month = DateFormat("M").format(DateTime.now());
+    String year = DateFormat("y").format(DateTime.now());
+
+    clocksWeekDays = _appointmentDate.getweekdayClocks(
+        "9", "2022", (selectedDay + 1).toString());
 
     return Scaffold(
       appBar: AppBar(
@@ -138,6 +145,9 @@ class _DoctorDetailState extends State<DoctorDetailPage> {
               ),
             ),
             Container(
+              decoration: BoxDecoration(
+                color: Colors.yellow,
+              ),
               margin: EdgeInsets.only(left: 20, top: 30),
               child: Text(
                 months[time.month - 1] + " " + time.year.toString(),
@@ -149,6 +159,9 @@ class _DoctorDetailState extends State<DoctorDetailPage> {
               ),
             ),
             Container(
+              decoration: BoxDecoration(
+                color: Colors.red,
+              ),
               margin: EdgeInsets.only(left: 20, top: 20, right: 20),
               height: 90,
               child: ListView.builder(
@@ -183,6 +196,9 @@ class _DoctorDetailState extends State<DoctorDetailPage> {
               ),
             ),
             Container(
+              decoration: BoxDecoration(
+                color: Colors.green,
+              ),
               margin: EdgeInsets.only(right: 20, left: 20),
               child: buildGrid(),
             ),
@@ -316,59 +332,47 @@ class _DoctorDetailState extends State<DoctorDetailPage> {
     return days;
   }
 
-  List<String>? weekendHours(int day) {
-    var arr = [22, 16];
-    DateTime tempDate = new DateFormat("HH:mm").parse("10:00");
-    int i = 0;
-    clocksWeekDays.clear();
-    while (tempDate.hour < arr[day]) {
-      clocksWeekDays.add(DateFormat("HH:mm").format(tempDate));
-      tempDate = DateTime(0, 0, 0, tempDate.hour, 60);
-      i++;
-    }
-  }
+  FutureBuilder<List<String>> buildGrid() {
+    bool isWeekend = false;
 
-  GridView buildGrid() {
-    if (gridUse == false) {
-      selectedDay = 0;
-    }
-    gridUse = true;
-    if (turkishDays[selectedDay] == "Cumartesi" ||
-        turkishDays[selectedDay] == "Pazar") {
-      weekendHours(1);
-    } else {
-      print(selectedDay);
-      weekendHours(0);
-    }
-
-    return GridView.builder(
-      gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
-          maxCrossAxisExtent: 200,
-          childAspectRatio: 2.7,
-          crossAxisSpacing: 10,
-          mainAxisSpacing: 10),
-      shrinkWrap: true,
-      physics: NeverScrollableScrollPhysics(),
-      itemCount: clocksWeekDays.length,
-      itemBuilder: (BuildContext context, index) {
-        return ElevatedButton(
-          style: ElevatedButton.styleFrom(
-            primary: selectedHour == index ? Colors.purple : Colors.white,
-          ),
-          onPressed: () {
-            setState(() {
-              selectedHour = index;
-            });
-          },
-          child: Container(
-            alignment: Alignment.center,
-            child: doctorTimingsData(clocksWeekDays[index], index),
-            decoration: BoxDecoration(
-                color: Colors.black.withOpacity(0.0),
-                borderRadius: BorderRadius.circular(15)),
-          ),
-        );
-      },
-    );
+    return FutureBuilder<List<String>>(
+        future: clocksWeekDays,
+        builder: (context, snapshot) {
+          if (snapshot.hasData) {
+            return GridView.builder(
+              gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
+                  maxCrossAxisExtent: 200,
+                  childAspectRatio: 2.7,
+                  crossAxisSpacing: 10,
+                  mainAxisSpacing: 10),
+              shrinkWrap: true,
+              physics: NeverScrollableScrollPhysics(),
+              itemCount: snapshot.data!.length,
+              itemBuilder: (BuildContext context, index) {
+                return ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                    primary:
+                        selectedHour == index ? Colors.purple : Colors.white,
+                  ),
+                  onPressed: () {
+                    setState(() {
+                      selectedHour = index;
+                    });
+                  },
+                  child: Container(
+                    alignment: Alignment.center,
+                    child: doctorTimingsData(snapshot.data![index], index),
+                    decoration: BoxDecoration(
+                        color: Colors.black.withOpacity(0.0),
+                        borderRadius: BorderRadius.circular(15)),
+                  ),
+                );
+              },
+            );
+          } else if (snapshot.hasError) {
+            return Text("${snapshot.error}");
+          }
+          return CircularProgressIndicator();
+        });
   }
 }

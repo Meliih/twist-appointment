@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:twist/HomePage.dart';
 import 'package:twist/Models/Globals.dart' as globals;
+import 'package:twist/Screen/RatingScreen.dart';
 
 import 'Screen/UserPageScreen.dart';
 
@@ -44,8 +45,12 @@ class _NavigationDrawerState extends State<NavigationDrawer> {
                     ),
                     const SizedBox(height: 16),
                     buildMenuItem(
-                      text: "Favoriler",
+                      text: "Değerlendirme",
                       icon: Icons.favorite_border,
+                      onClicked: () => Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => RatingScreen())),
                     ),
                     const SizedBox(height: 16),
                     buildMenuItem(

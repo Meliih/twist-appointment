@@ -1,5 +1,7 @@
 import 'package:firebase_database/firebase_database.dart';
 import 'package:intl/intl.dart';
+import 'package:twist/Models/Clock.dart';
+import 'package:twist/Models/Day.dart';
 
 class AppointmentDate {
   AppointmentDate(
@@ -35,26 +37,25 @@ class AppointmentDate {
     "Pazar",
   ];
 
-  getDay() {
-    var month = DateFormat("M").format(DateTime.now());
-
-    for (DateTime indexDay = DateTime(2022, 9, 1);
-        indexDay.month == 9;
+  getDay(String trainerName, int day, int month, int year) {
+    for (DateTime indexDay = DateTime(year, month, day);
+        indexDay.compareTo(DateTime(2023, 12, 31)) < 0;
         indexDay = indexDay.add(Duration(days: 1)))
       if (trDays[indexDay.weekday - 1] == "Pazar" ||
           trDays[indexDay.weekday - 1] == "Cumartesi") {
         writeData(indexDay.day, indexDay.month, indexDay.year,
-            trDays[indexDay.weekday - 1], true);
+            trDays[indexDay.weekday - 1], true, trainerName);
       } else {
         writeData(indexDay.day, indexDay.month, indexDay.year,
-            trDays[indexDay.weekday - 1], false);
+            trDays[indexDay.weekday - 1], false, trainerName);
       }
   }
 
-  void writeData(int day, int month, int year, String weekDay, bool isWeekend) {
+  void writeData(int day, int month, int year, String weekDay, bool isWeekend,
+      String trainerName) {
     DatabaseReference reference = FirebaseDatabase.instance
         .reference()
-        .child("AppointmentDays/${month}-${year}/${day}");
+        .child("AppointmentDays/${month}-${year}/${trainerName}/${day}");
     if (!isWeekend) {
       reference.set({
         "name": "${weekDay}",
@@ -112,21 +113,47 @@ class AppointmentDate {
     }
   }
 
-  Future<List<String>> getweekdayClocks(
-      String month, String year, String day) async {
-    List<String> weekdayClocks = [];
+  Future<List<Clock>> getweekdayClocks(
+      String month, String year, String day, String trainerName) async {
+    List<Clock> clocks = [];
     final event = await FirebaseDatabase.instance
-        .ref('AppointmentDays/${month}-${year}/${day}/clocks')
+        .ref('AppointmentDays/${month}-${year}/${trainerName}/${day}/clocks')
         .once();
 
     final data = event.snapshot.children;
+
+    Clock clock;
     // child name
     data.forEach((element) {
       String value = element.key.toString();
       // add to list
-      weekdayClocks.add(value);
-      print(value);
+      bool isActive = element.child("isActive").value as bool;
+      clock = Clock(value, isActive);
+      //print(isActive);
+      clocks.add(clock);
+      //print(value);
     });
-    return weekdayClocks;
+    return clocks;
+  }
+
+  Future<List<Day>> getDaysByMonth(
+      String month, String year, String trainerName) async {
+    List<Day> daysMonth = [];
+    final event = await FirebaseDatabase.instance
+        .ref('AppointmentDays/${month}-${year}/${trainerName}')
+        .once();
+
+    final data = event.snapshot.children;
+    // child name
+    Day day;
+    data.forEach((element) {
+      String value = element.key.toString();
+      // add to list
+      String days = element.child("name").value.toString();
+      day = Day(days, value);
+      daysMonth.add(day);
+      //print(value);
+    });
+    return daysMonth;
   }
 }

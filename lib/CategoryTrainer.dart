@@ -6,7 +6,7 @@ import 'Doctor_details_page.dart';
 import 'Models/Trainer.dart';
 
 class CategoryTrainer extends StatefulWidget {
-  final List<Trainer> trainers;
+  final Future<List<Trainer>> trainers;
   final int selectedCategory;
 
   const CategoryTrainer(
@@ -23,8 +23,8 @@ class _CategoryTrainerState extends State<CategoryTrainer> {
     return initWidget(context, widget.trainers, widget.selectedCategory);
   }
 
-  Widget initWidget(
-      BuildContext context, List<Trainer> trainers, int selectedCategory) {
+  Widget initWidget(BuildContext context, Future<List<Trainer>> trainers,
+      int selectedCategory) {
     Size size = MediaQuery.of(context).size;
     return Scaffold(
       backgroundColor: Colors.purple,
@@ -37,19 +37,30 @@ class _CategoryTrainerState extends State<CategoryTrainer> {
           Expanded(
             child: Container(
               margin: EdgeInsets.only(left: 20, right: 20),
-              child: ListView.builder(
-                  itemCount: trainers.length,
-                  itemBuilder: (BuildContext context, int index) {
-                    for (int i = 0;
-                        i < trainers[index].category_id.length;
-                        i++) {
-                      if (selectedCategory == trainers[index].category_id[i]) {
-                        return demoTopRatedDr(context, trainers[index]);
-                      }
+              child: FutureBuilder<List<Trainer>>(
+                  future: trainers,
+                  builder: (context, snapshot) {
+                    if (snapshot.hasData) {
+                      return ListView.builder(
+                          itemCount: snapshot.data!.length,
+                          itemBuilder: (BuildContext context, int index) {
+                            for (int i = 0;
+                                i < snapshot.data![index].category_id.length;
+                                i++) {
+                              if (selectedCategory ==
+                                  snapshot.data![index].category_id[i]) {
+                                return demoTopRatedDr(
+                                    context, snapshot.data![index]);
+                              }
+                            }
+                            return SizedBox(
+                              width: 0,
+                            );
+                          });
+                    } else if (snapshot.hasError) {
+                      return Text("${snapshot.error}");
                     }
-                    return SizedBox(
-                      width: 0,
-                    );
+                    return CircularProgressIndicator();
                   }),
             ),
           ),

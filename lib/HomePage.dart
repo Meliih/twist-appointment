@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:twist/CategoryTrainer.dart';
 import 'package:twist/DbHelper.dart';
+import 'package:twist/Models/AppointmentDate.dart';
 import 'package:twist/NavigationDrawer.dart';
 import 'package:twist/Screen/UserPageScreen.dart';
 import 'Doctor_details_page.dart';
@@ -22,9 +23,10 @@ class HomePageState extends State<HomePage> {
   }
 
   Widget initScreen() {
-    List<Trainer> trainers = DbHelper().Trainers();
+    Future<List<Trainer>> trainers =
+        Trainer(0, "", "", "", "", []).getTrainers();
     List<Category> categories = DbHelper().Categories();
-
+/*
     for (int i = 0; i < categories.length; i++) {
       for (int j = 0; j < trainers.length; j++) {
         for (int k = 0; k < trainers[j].category_id.length; k++) {
@@ -34,7 +36,7 @@ class HomePageState extends State<HomePage> {
         }
       }
     }
-
+*/
     Size size = MediaQuery.of(context).size;
     return Scaffold(
       backgroundColor: Colors.purple,
@@ -137,10 +139,20 @@ class HomePageState extends State<HomePage> {
             Expanded(
               child: Container(
                 margin: EdgeInsets.only(left: 20, right: 20),
-                child: ListView.builder(
-                    itemCount: trainers.length,
-                    itemBuilder: (BuildContext context, int index) {
-                      return demoTopRatedDr(context, trainers[index]);
+                child: FutureBuilder<List<Trainer>>(
+                    future: trainers,
+                    builder: (context, snapshot) {
+                      if (snapshot.hasData) {
+                        return ListView.builder(
+                            itemCount: snapshot.data!.length,
+                            itemBuilder: (BuildContext context, int index) {
+                              return demoTopRatedDr(
+                                  context, snapshot.data![index]);
+                            });
+                      } else if (snapshot.hasError) {
+                        return Text("${snapshot.error}");
+                      }
+                      return CircularProgressIndicator();
                     }),
               ),
             )
@@ -150,7 +162,7 @@ class HomePageState extends State<HomePage> {
     );
   }
 
-  Widget demoCategories(List<Trainer> trainers, Category category) {
+  Widget demoCategories(Future<List<Trainer>> trainers, Category category) {
     return GestureDetector(
       onTap: () {
         Navigator.push(

@@ -3,15 +3,20 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'DbHelper.dart';
 import 'Doctor_details_page.dart';
+import 'Models/Category.dart';
 import 'Models/Trainer.dart';
 
 class CategoryTrainer extends StatefulWidget {
   final Future<List<Trainer>> trainers;
   final int selectedCategory;
+  final Category category;
 
-  const CategoryTrainer(
-      {Key? key, required this.trainers, required this.selectedCategory})
-      : super(key: key);
+  const CategoryTrainer({
+    Key? key,
+    required this.trainers,
+    required this.selectedCategory,
+    required this.category,
+  }) : super(key: key);
 
   @override
   State<CategoryTrainer> createState() => _CategoryTrainerState();
@@ -49,8 +54,8 @@ class _CategoryTrainerState extends State<CategoryTrainer> {
                                 i++) {
                               if (selectedCategory ==
                                   snapshot.data![index].category_id[i]) {
-                                return demoTopRatedDr(
-                                    context, snapshot.data![index]);
+                                return demoTopRatedDr(context,
+                                    snapshot.data![index], widget.category);
                               }
                             }
                             return SizedBox(
@@ -70,8 +75,10 @@ class _CategoryTrainerState extends State<CategoryTrainer> {
   }
 }
 
-Widget demoTopRatedDr(BuildContext context, Trainer trainer) {
+Widget demoTopRatedDr(
+    BuildContext context, Trainer trainer, Category category) {
   Size size = MediaQuery.of(context).size;
+
   return GestureDetector(
     onTap: () {
       Navigator.push(
@@ -79,6 +86,7 @@ Widget demoTopRatedDr(BuildContext context, Trainer trainer) {
           MaterialPageRoute(
               builder: (context) => DoctorDetailPage(
                     trainer: trainer,
+                    category: category,
                   )));
     },
     child: Container(

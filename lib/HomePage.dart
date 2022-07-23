@@ -25,7 +25,7 @@ class HomePageState extends State<HomePage> {
   Widget initScreen() {
     Future<List<Trainer>> trainers =
         Trainer(0, "", "", "", "", []).getTrainers();
-    List<Category> categories = DbHelper().Categories();
+    Future<List<Category>> categories = Category(0, "", "", 0).getCategories();
 /*
     for (int i = 0; i < categories.length; i++) {
       for (int j = 0; j < trainers.length; j++) {
@@ -115,11 +115,21 @@ class HomePageState extends State<HomePage> {
             Container(
               height: 120,
               margin: EdgeInsets.only(top: 20, left: 20),
-              child: ListView.builder(
-                  scrollDirection: Axis.horizontal,
-                  itemCount: categories.length,
-                  itemBuilder: (BuildContext context, int index) {
-                    return demoCategories(trainers, categories[index]);
+              child: FutureBuilder<List<Category>>(
+                  future: categories,
+                  builder: (context, snapshot) {
+                    if (snapshot.hasData) {
+                      return ListView.builder(
+                          scrollDirection: Axis.horizontal,
+                          itemCount: snapshot.data!.length,
+                          itemBuilder: (BuildContext context, int index) {
+                            return demoCategories(
+                                trainers, snapshot.data![index]);
+                          });
+                    } else if (snapshot.hasError) {
+                      return Text("${snapshot.error}");
+                    }
+                    return CircularProgressIndicator();
                   }),
             ),
             Container(
@@ -169,7 +179,10 @@ class HomePageState extends State<HomePage> {
             context,
             MaterialPageRoute(
                 builder: (context) => CategoryTrainer(
-                    trainers: trainers, selectedCategory: category.id)));
+                      trainers: trainers,
+                      selectedCategory: category.id,
+                      category: category,
+                    )));
       },
       child: Container(
         width: 100,
@@ -221,14 +234,7 @@ class HomePageState extends State<HomePage> {
   Widget demoTopRatedDr(BuildContext context, Trainer trainer) {
     var size = MediaQuery.of(context).size;
     return GestureDetector(
-      onTap: () {
-        Navigator.push(
-            context,
-            MaterialPageRoute(
-                builder: (context) => DoctorDetailPage(
-                      trainer: trainer,
-                    )));
-      },
+      onTap: () {},
       child: Container(
         height: 90,
         width: size.width - 40,

@@ -39,22 +39,27 @@ class Trainer {
     Trainer trainer;
     // child name
     data.forEach((element) {
-      String value = element.key.toString();
+      // element keys
 
       int id = element.child("id").value as int;
       String img = element.child("img").value.toString();
       String name = element.child("name").value.toString();
       String rating = element.child("rating").value.toString();
       String domain = element.child("domain").value.toString();
-
-      print(element.child("categor_id").value.toString().split(", "));
-      List<int> category_id = element
+      List<int> category_id = [];
+      List<String> cate = element
           .child("categor_id")
           .value
           .toString()
-          .split(", ")
-          .map(int.parse)
-          .toList();
+          .replaceAll('[', '')
+          .replaceAll(']', '')
+          .replaceAll(' ', '')
+          .split(',');
+      for (var i = 0; i < cate.length; i++) {
+        category_id.add(int.parse(cate[i]));
+        //print(category_id[i]);
+      }
+      //print(cate.length);
 
       trainer = Trainer(id, img, name, rating, domain, category_id);
       //print(isActive);

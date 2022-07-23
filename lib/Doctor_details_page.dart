@@ -2,19 +2,26 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/date_symbol_data_local.dart';
+import 'package:twist/Models/Appointment.dart';
 import 'package:twist/Models/AppointmentDate.dart';
 import 'package:twist/Models/Clock.dart';
 import 'package:twist/Models/Day.dart';
+import 'package:twist/Screen/AppointmentConfirmation.dart';
+import 'package:twist/Screen/thankyouPage.dart';
 import 'DbHelper.dart';
 import 'package:intl/intl.dart';
+import 'package:twist/Models/Globals.dart' as Global;
 
+import 'Models/Category.dart';
 import 'Models/Trainer.dart';
 
 class DoctorDetailPage extends StatefulWidget {
   final Trainer trainer;
+  final Category category;
   const DoctorDetailPage({
     Key? key,
     required this.trainer,
+    required this.category,
   }) : super(key: key);
 
   @override
@@ -23,10 +30,13 @@ class DoctorDetailPage extends StatefulWidget {
 
 class _DoctorDetailState extends State<DoctorDetailPage> {
   DateTime time = DateTime.now();
-
+  int MAX_USER = 2;
   bool gridUse = false;
-  var selectedDay = 0;
+  var selectedDay = DateTime.now().day - 1;
   var selectedHour = 0;
+  int selectedMonth = 0;
+  String selectedYear = "";
+  String selectedClock = "";
 
   List<String> months = [
     "Ocak",
@@ -55,7 +65,7 @@ class _DoctorDetailState extends State<DoctorDetailPage> {
 
   Widget initWidget(BuildContext context, Trainer trainer) {
     //_appointmentDate.getDay(this.widget.trainer.name, 1, 7, 2022);
-
+    String day = DateFormat('d').format(DateTime.now());
     String month = DateFormat("M").format(DateTime.now());
     String year = DateFormat("y").format(DateTime.now());
     Future<List<Day>> days =
@@ -160,24 +170,30 @@ class _DoctorDetailState extends State<DoctorDetailPage> {
                           scrollDirection: Axis.horizontal,
                           itemCount: snapshot.data!.length,
                           itemBuilder: (BuildContext context, int index) {
-                            return Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: ElevatedButton(
-                                style: ElevatedButton.styleFrom(
-                                  padding: EdgeInsets.zero,
-                                  primary: selectedDay == index
-                                      ? Colors.purple
-                                      : Colors.white,
+                            if (int.parse(snapshot.data![index].day) >=
+                                int.parse(day)) {
+                              return Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: ElevatedButton(
+                                  style: ElevatedButton.styleFrom(
+                                    padding: EdgeInsets.zero,
+                                    primary: selectedDay == index
+                                        ? Colors.purple
+                                        : Colors.white,
+                                  ),
+                                  onPressed: () {
+                                    setState(() {
+                                      selectedDay = index;
+                                    });
+                                    //print(selectedDay);
+                                  },
+                                  child:
+                                      demoDates(snapshot.data![index], index),
                                 ),
-                                onPressed: () {
-                                  setState(() {
-                                    selectedDay = index;
-                                  });
-                                  //print(selectedDay);
-                                },
-                                child: demoDates(snapshot.data![index], index),
-                              ),
-                            );
+                              );
+                            } else {
+                              return Container();
+                            }
                           });
                     } else if (snapshot.hasError) {
                       return Text("${snapshot.error}");
@@ -201,6 +217,24 @@ class _DoctorDetailState extends State<DoctorDetailPage> {
               child: buildGrid(),
             ),
             GestureDetector(
+              onTap: () {
+                Appointment(0, 0, 0, "", "", "").newAppointment(
+                    Appointment(
+                        selectedDay + 1,
+                        time.month,
+                        time.year,
+                        selectedClock,
+                        trainer.name,
+                        Global.email.replaceAll(".", '')),
+                    widget.category.name);
+
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => AppointmentConfirmation(),
+                  ),
+                );
+              },
               child: Container(
                 alignment: Alignment.center,
                 width: MediaQuery.of(context).size.width,
@@ -323,7 +357,12 @@ class _DoctorDetailState extends State<DoctorDetailPage> {
               physics: NeverScrollableScrollPhysics(),
               itemCount: snapshot.data!.length,
               itemBuilder: (BuildContext context, index) {
-                if (snapshot.data![index].isActive == false) {
+                if (snapshot.data![index].isActive == false ||
+                    snapshot.data![index].count >= MAX_USER ||
+                    (time.hour >=
+                            int.parse(
+                                snapshot.data![index].name.split(':')[0]) &&
+                        time.day == selectedDay + 1)) {
                   return Container(
                     alignment: Alignment.center,
                     child: doctorTimingsData(snapshot.data![index], index),
@@ -340,7 +379,8 @@ class _DoctorDetailState extends State<DoctorDetailPage> {
                     onPressed: () {
                       setState(() {
                         selectedHour = index;
-                        print(selectedHour);
+                        selectedClock = snapshot.data![index].name;
+                        //print(selectedHour);
                       });
                     },
                     child: Container(

@@ -62,39 +62,51 @@ class AppointmentDate {
         "clocks": {
           "10:00": {
             "isActive": true,
+            "count": 0,
           },
           "11:00": {
             "isActive": true,
+            "count": 0,
           },
           "12:00": {
             "isActive": true,
+            "count": 0,
           },
           "13:00": {
             "isActive": true,
+            "count": 0,
           },
           "14:00": {
             "isActive": true,
+            "count": 0,
           },
           "15:00": {
             "isActive": true,
+            "count": 0,
           },
           "16:00": {
             "isActive": true,
+            "count": 0,
           },
           "17:00": {
             "isActive": true,
+            "count": 0,
           },
           "18:00": {
             "isActive": true,
+            "count": 0,
           },
           "19:00": {
             "isActive": true,
+            "count": 0,
           },
           "20:00": {
             "isActive": true,
+            "count": 0,
           },
           "21:00": {
             "isActive": true,
+            "count": 0,
           }
         }
       });
@@ -102,12 +114,30 @@ class AppointmentDate {
       reference.set({
         "name": "${weekDay}",
         "clocks": {
-          "10:00": {"isActive": true},
-          "11:00": {"isActive": true},
-          "12:00": {"isActive": true},
-          "13:00": {"isActive": true},
-          "14:00": {"isActive": true},
-          "15:00": {"isActive": true}
+          "10:00": {
+            "isActive": true,
+            "count": 0,
+          },
+          "11:00": {
+            "isActive": true,
+            "count": 0,
+          },
+          "12:00": {
+            "isActive": true,
+            "count": 0,
+          },
+          "13:00": {
+            "isActive": true,
+            "count": 0,
+          },
+          "14:00": {
+            "isActive": true,
+            "count": 0,
+          },
+          "15:00": {
+            "isActive": true,
+            "count": 0,
+          }
         }
       });
     }
@@ -128,7 +158,8 @@ class AppointmentDate {
       String value = element.key.toString();
       // add to list
       bool isActive = element.child("isActive").value as bool;
-      clock = Clock(value, isActive);
+      int count = int.parse(element.child("count").value.toString());
+      clock = Clock(value, isActive, count);
       //print(isActive);
       clocks.add(clock);
       //print(value);

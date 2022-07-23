@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:twist/HomePage.dart';
+import 'package:twist/Models/Appointment.dart';
 import 'package:twist/Models/Globals.dart' as globals;
+import 'package:twist/Screen/AppointmentPage.dart';
 import 'package:twist/Screen/RatingScreen.dart';
 
 import 'Screen/UserPageScreen.dart';
@@ -60,9 +62,14 @@ class _NavigationDrawerState extends State<NavigationDrawer> {
                     ),
                     const SizedBox(height: 16),
                     buildMenuItem(
-                      text: "Güncellemeler",
-                      icon: Icons.update,
-                    ),
+                        text: "Randevularım",
+                        icon: Icons.calendar_today,
+                        onClicked: () {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => AppointmentPage()));
+                        }),
                     const SizedBox(height: 24),
                     Divider(color: Colors.white70),
                     const SizedBox(height: 20),

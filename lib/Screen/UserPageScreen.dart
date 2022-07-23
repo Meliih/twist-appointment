@@ -69,7 +69,12 @@ class _UserPage extends State<UserPage> {
                 ),
               ),
             ),
-            buildTextField(),
+            SizedBox(
+              height: 20,
+            ),
+            Row(
+              children: [buildTextField(), buildTextField()],
+            ),
             Container(
               alignment: Alignment.center,
               width: MediaQuery.of(context).size.width,
@@ -104,11 +109,12 @@ class _UserPage extends State<UserPage> {
 
   buildTextField() {
     return Container(
+      width: MediaQuery.of(context).size.width / 2 - 20,
+      margin: EdgeInsets.only(left: 10, right: 10),
       decoration: BoxDecoration(
           color: Colors.white,
           border: Border.all(color: Colors.grey),
           borderRadius: BorderRadius.circular(19)),
-      margin: const EdgeInsets.fromLTRB(20, 20, 20, 10),
       padding: const EdgeInsets.fromLTRB(5, 5, 5, 5),
       child: Column(
         children: <Widget>[

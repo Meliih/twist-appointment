@@ -4,16 +4,17 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:twist/HomePage.dart';
 
-class ThankYouPage extends StatefulWidget {
-  const ThankYouPage({Key? key}) : super(key: key);
+class AppointmentConfirmation extends StatefulWidget {
+  const AppointmentConfirmation({Key? key}) : super(key: key);
 
   @override
-  State<ThankYouPage> createState() => _ThankYouPageState();
+  State<AppointmentConfirmation> createState() =>
+      _AppointmentConfirmationState();
 }
 
 Color themeColor = Colors.purple;
 
-class _ThankYouPageState extends State<ThankYouPage> {
+class _AppointmentConfirmationState extends State<AppointmentConfirmation> {
   double screenWidth = 600;
   double screenHeight = 400;
   Color textColor = const Color(0xFF32567A);
@@ -22,7 +23,7 @@ class _ThankYouPageState extends State<ThankYouPage> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    startTime();
+    //startTime();
   }
 
   @override
@@ -37,16 +38,20 @@ class _ThankYouPageState extends State<ThankYouPage> {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: <Widget>[
             Container(
-              height: 170,
+              height: 270,
               padding: EdgeInsets.all(35),
               decoration: BoxDecoration(
-                color: Color(0xFF9C27B0),
+                color: Colors.transparent,
                 shape: BoxShape.circle,
               ),
-              child: Image.asset(
-                "assets/icons/message-notification.gif",
-                fit: BoxFit.contain,
-                //color: Colors.purple,
+              child: ClipRRect(
+                borderRadius: BorderRadius.all(
+                  Radius.circular(30),
+                ),
+                child: Image.asset(
+                  "image/green-tick.gif",
+                  fit: BoxFit.fill,
+                ),
               ),
             ),
             SizedBox(height: screenHeight * 0.1),
@@ -60,7 +65,7 @@ class _ThankYouPageState extends State<ThankYouPage> {
             ),
             SizedBox(height: screenHeight * 0.04),
             Text(
-              "Mesajınız iletildi",
+              "Randevunuz Alınmıştır",
               style: GoogleFonts.poiretOne(
                 color: Color(0xff363636),
                 fontWeight: FontWeight.w600,

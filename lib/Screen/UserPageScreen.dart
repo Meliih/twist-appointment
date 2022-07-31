@@ -73,7 +73,7 @@ class _UserPage extends State<UserPage> {
               height: 20,
             ),
             Row(
-              children: [buildTextField(), buildTextField()],
+              children: [buildTextField(), buildTextField2()],
             ),
             Container(
               alignment: Alignment.center,
@@ -220,11 +220,22 @@ class _UserPage extends State<UserPage> {
               ),
             ),
           ),
-          Container(
-            child: Divider(
-              color: Colors.black,
-            ),
-          ),
+        ],
+      ),
+    );
+  }
+
+  buildTextField2() {
+    return Container(
+      width: MediaQuery.of(context).size.width / 2 - 20,
+      margin: EdgeInsets.only(left: 10, right: 10),
+      decoration: BoxDecoration(
+          color: Colors.white,
+          border: Border.all(color: Colors.grey),
+          borderRadius: BorderRadius.circular(19)),
+      padding: const EdgeInsets.fromLTRB(5, 5, 5, 5),
+      child: Column(
+        children: <Widget>[
           TextField(
             style: GoogleFonts.poiretOne(
               color: Colors.black,
@@ -323,11 +334,6 @@ class _UserPage extends State<UserPage> {
                 fontWeight: FontWeight.w600,
                 fontSize: 17,
               ),
-            ),
-          ),
-          Container(
-            child: Divider(
-              color: Colors.black,
             ),
           ),
         ],

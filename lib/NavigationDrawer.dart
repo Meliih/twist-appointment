@@ -5,6 +5,7 @@ import 'package:twist/HomePage.dart';
 import 'package:twist/Models/Appointment.dart';
 import 'package:twist/Models/Globals.dart' as globals;
 import 'package:twist/Screen/AppointmentPage.dart';
+import 'package:twist/Screen/NotificationScreen.dart';
 import 'package:twist/Screen/RatingScreen.dart';
 
 import 'Screen/UserPageScreen.dart';
@@ -57,9 +58,14 @@ class _NavigationDrawerState extends State<NavigationDrawer> {
                     ),
                     const SizedBox(height: 16),
                     buildMenuItem(
-                      text: "Bildirimler",
-                      icon: Icons.notifications_outlined,
-                    ),
+                        text: "Bildirimler",
+                        icon: Icons.notifications_outlined,
+                        onClicked: () {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => NotificationScreen()));
+                        }),
                     const SizedBox(height: 16),
                     buildMenuItem(
                         text: "Randevularım",

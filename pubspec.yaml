@@ -36,7 +36,8 @@ dependencies:
   google_fonts:
   flutter_rating_bar: ^4.0.1
   cupertino_icons: 
-
+  expandable:
+  auto_size_text:
   
 
 

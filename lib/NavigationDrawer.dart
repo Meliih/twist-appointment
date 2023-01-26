@@ -7,6 +7,7 @@ import 'package:twist/Models/Globals.dart' as globals;
 import 'package:twist/Screen/AppointmentPage.dart';
 import 'package:twist/Screen/NotificationScreen.dart';
 import 'package:twist/Screen/RatingScreen.dart';
+import 'package:twist/Screen/Trainers/TrainerHomePage.dart';
 
 import 'Screen/UserPageScreen.dart';
 
@@ -80,9 +81,14 @@ class _NavigationDrawerState extends State<NavigationDrawer> {
                     Divider(color: Colors.white70),
                     const SizedBox(height: 20),
                     buildMenuItem(
-                      text: "Destek",
-                      icon: Icons.support,
-                    ),
+                        text: "egitmenler için",
+                        icon: Icons.support,
+                        onClicked: () {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => TrainerHomePage()));
+                        }),
                     const SizedBox(height: 20),
                     buildMenuItem(
                         text: "Çıkış Yap",
